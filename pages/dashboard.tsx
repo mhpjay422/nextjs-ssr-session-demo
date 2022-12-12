@@ -27,18 +27,15 @@ const Hosts: NextPage<{ session: Session }> = ({ session }) => {
 };
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const sessionToken = JSON.parse(
-    JSON.stringify(
-      await unstable_getServerSession(context.req, context.res, authOptions)
-    )
-  );
-
-  console.log("sessionToken", sessionToken);
-  
+  const session = await unstable_getServerSession(
+                    context.req,
+                    context.res,
+                    authOptions
+                  )
 
   return {
     props: {
-      session: sessionToken,
+      session
     },
   };
 }

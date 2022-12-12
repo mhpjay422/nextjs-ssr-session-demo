@@ -22,47 +22,21 @@ export const authOptions: NextAuthOptions = {
 
       // @ts-ignore This requires some await call that we are bypassing
       async authorize(credentials, req) {
-        return {
-          id: 1,
-          name: "J Smith",
-          email: "jsmith@example.com",
-          authenticationToken: "kjb34kbj2345kjb4523",
-        };
+        // Add logic here to look up the user from the credentials supplied
+        const user = { id: "1", name: "J Smith", email: "jsmith@example.com", image: null };
+
+        if (user) {
+          // Any object returned will be saved in `user` property of the JWT
+          return user;
+        } else {
+          // If you return null then an error will be displayed advising the user to check their details.
+          return null;
+
+          // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
+        }
       },
     }),
   ],
-  callbacks: {
-    // async jwt({ token }) {
-    //   token.userRole = "admin";
-    //   return token;
-    // },
-    async session({ session, user, token }: any) {
-      // console.log("================== session =====================");
-      // console.log("session", session);
-      // console.log("sessuser", user);
-      // console.log("sesstoken", token);
-
-      // I dont see a session.authenticationToken
-      if (session.authenticationToken) {
-        session.authenticationToken = token.authenticationToken;
-      } else {
-        session.token = token;
-      }
-
-      return session;
-    },
-    async jwt({ token, user }: any) {
-      // console.log("================== jwt =====================");
-      // console.log("jwttoken", token);
-      // console.log("jwtuser", user);
-
-      if (user) {
-        token.authenticationToken = user.authentication_token;
-      }
-
-      return token;
-    },
-  },
   pages: {
     signIn: "/",
     signOut: "/",
