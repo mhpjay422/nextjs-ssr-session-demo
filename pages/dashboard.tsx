@@ -24,19 +24,5 @@ const Hosts: NextPage = () => {
   );
 };
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const session = await unstable_getServerSession(
-                    context.req,
-                    context.res,
-                    authOptions
-                  )
-
-  return {
-    props: {
-      session
-    },
-  };
-}
-
 export default Hosts;
 

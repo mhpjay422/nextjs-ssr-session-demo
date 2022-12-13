@@ -29,11 +29,6 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
-  pages: {
-    signIn: "/",
-    signOut: "/",
-    error: "/", // Error code passed in query string as ?error=
-  },
   jwt: {
     secret: "blah",
   },
